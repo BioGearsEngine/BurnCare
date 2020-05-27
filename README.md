@@ -10,11 +10,13 @@ BurnCare is designed to run on Android OS tablets and Windows machines. The game
 The game is designed in a modular fashion where each module supports different burn specific treatment. For this Alpha release the game supports total body surface area burn estimation and escharotomy training (location, and depth). Future releases will include more modules such as: fluid resuscitation, multi-trauma, and pain management. 
 
 ## Accessing the Game
-The game is pre-built and this project includes all dependencies required to run. All dependencies will be included into a single executable for the official release. To run the game navigate to 
+The pre-built Alpha game is available in the releases tab. Navigate to that window in github ([here](https://github.com/BioGearsEngine/BurnCare/releases)).
+To run the game download the zip file, unzip the windowsBurnCare.zip file, and navigate to the following folder: 
 
-- `Game/` 
-  - `Binaries/` 
-  	- `Win64/` 
+- `WindowsNoEditor/`
+   - `Game/` 
+     - `Binaries/` 
+  	   - `Win64/` 
 	
 From this folder double click (or run) the executable titled Game-Win64-Shipping.exe. This should boot the game. If you have issues please contact: abaird@ara.com.
 
