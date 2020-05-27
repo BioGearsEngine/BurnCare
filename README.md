@@ -16,7 +16,7 @@ The game is pre-built and this project includes all dependencies required to run
   - `Binaries/` 
   	- `Win64/` 
 	
-From this folder double click (or run) the executable titled '''Game-Win64-Shipping.exe'''. This should boot the game. If you have issues please contact: abaird@ara.com.
+From this folder double click (or run) the executable titled Game-Win64-Shipping.exe. This should boot the game. If you have issues please contact: abaird@ara.com.
 
 Programmatics
 ===============
