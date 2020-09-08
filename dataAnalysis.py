@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import t
+from matplotlib import rc
 
 print(pd.__version__)
 
@@ -54,6 +56,13 @@ def comput_sd(mean,data):
     standardDev = np.sqrt(sum1/(len(diff2)))
     return standardDev
 
+def tStatistic(sampleMean, populationMean, sampleSize, sd):
+
+    t = (sampleMean - populationMean) / (sd / np.sqrt(sampleSize))
+    return t
+
+#def plot_gaussian(mean, sd):
+
 #load data 
 data = pd.read_csv("BurnData")
 
@@ -85,20 +94,43 @@ standardDev2 = comput_sd(mean2, diff2)
 standardDev3 = comput_sd(mean3, diff3)
 standardDevTotal = comput_sd(meanTotal, diffTotal)
 
+#plot_gaussian(meanTotal, standardDevTotal)
+
+#compute and report t-statistic
+tTotal = tStatistic(meanTotal, 10, len(reported2), standardDevTotal) 
+t2 = tStatistic(mean2, 10, len(reported2), standardDev2) 
+t3 = tStatistic(mean3, 10, len(reported2), standardDev3) 
+
+print("t-statistics for 2nd degree burn: ", t2,  "\n" , 
+    "t-statistics for 3rd degree burn: ", t3, "\n", 
+    "t-statistics for total burn: ", tTotal, "\n")
+
 print(mean3)
 print(standardDev3)
 print(standardDevTotal)
+
+#compute the p value for the given degree of freedom
+p2 = t.sf(np.abs(t2), len(reported2)-1)
+p3 = t.sf(np.abs(t3), len(reported3)-1)
+pTotal = t.sf(np.abs(tTotal), len(reportedTotal)-1)
+
+#print out the statistics:
+print("p-statistics for 2nd degree burn: ", p2,  "\n" , 
+    "p-statistics for 3rd degree burn: ", p3, "\n", 
+    "p-statistics for total burn: ", pTotal, "\n")
 
 mean = [mean2, mean3, meanTotal]
 standardDev = [standardDev2, standardDev3, standardDevTotal]
 reportedMean = (reported2.mean(), reported3.mean(), reportedTotal.mean())
 trueMean = (optimal2.mean(), optimal3.mean(), optimalTotal.mean())
 
+rc('font',**{'family':'sans-serif','sans-serif':['DejaVu Sans'],'size':10})
+
 #plotting 
 fig, (ax1, ax2) = plt.subplots(2,1, sharex=True)
 bins = 4
-stylize_axes(ax1, bins, 'Error')
-stylize_axes(ax2, bins, 'Reported TBSA')
+stylize_axes(ax1, bins, '')
+stylize_axes(ax2, bins, '')
 
 
 
@@ -131,8 +163,13 @@ for i in trueMean:
     ax2.plot(x[sum2], i, 'bD')
     sum2 += 1
 
+ax1.set_ylabel('Error % TBSA')
+ax2.set_ylabel('Reported % TBSA')
 
+ax1.annotate('p < 0.0001', (-0.3,10))
+ax1.annotate('p < 0.0001', (0.7,10))
+ax1.annotate('p < 0.002', (1.7,10))
 
 fig.tight_layout()
-fig.savefig('BurnData.png', dpi=300, bbox_inches='tight', transparent=True)
+fig.savefig('BurnData.png', dpi=400, bbox_inches='tight', transparent=True)
 plt.show()
