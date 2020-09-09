@@ -98,16 +98,21 @@ standardDevTotal = comput_sd(meanTotal, diffTotal)
 
 #compute and report t-statistic
 tTotal = tStatistic(meanTotal, 10, len(reported2), standardDevTotal) 
-t2 = tStatistic(mean2, 10, len(reported2), standardDev2) 
-t3 = tStatistic(mean3, 10, len(reported2), standardDev3) 
+t2 = tStatistic(mean2, 5, len(reported2), standardDev2) 
+t3 = tStatistic(mean3, 5, len(reported2), standardDev3) 
 
 print("t-statistics for 2nd degree burn: ", t2,  "\n" , 
     "t-statistics for 3rd degree burn: ", t3, "\n", 
     "t-statistics for total burn: ", tTotal, "\n")
 
-print(mean3)
-print(standardDev3)
-print(standardDevTotal)
+print( "mean 3rd: ", mean3)
+print( "mean 2rd: ", mean2)
+print( "mean total: ", meanTotal)
+
+print("sd for 3rd: ", standardDev3)
+print("sd for 2nd: ", standardDev2)
+print("sd for total: ", standardDevTotal)
+
 
 #compute the p value for the given degree of freedom
 p2 = t.sf(np.abs(t2), len(reported2)-1)
@@ -166,9 +171,9 @@ for i in trueMean:
 ax1.set_ylabel('Error % TBSA')
 ax2.set_ylabel('Reported % TBSA')
 
-ax1.annotate('p < 0.0001', (-0.3,10))
-ax1.annotate('p < 0.0001', (0.7,10))
-ax1.annotate('p < 0.002', (1.7,10))
+ax1.annotate('p < 0.1', (-0.3,10))
+ax1.annotate('p < 0.005', (0.7,10))
+ax1.annotate('p < 0.005', (1.7,10))
 
 fig.tight_layout()
 fig.savefig('BurnData.png', dpi=400, bbox_inches='tight', transparent=True)
